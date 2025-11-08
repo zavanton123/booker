@@ -1,0 +1,182 @@
+<div>
+  <h2 id="page-heading" data-cy="ReviewHeading">
+    <span bookerTranslate="bookerApp.review.home.title">Reviews</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span bookerTranslate="bookerApp.review.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-review"
+        [routerLink]="['/review/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span bookerTranslate="bookerApp.review.home.createLabel">Create a new Review</span>
+      </button>
+    </div>
+  </h2>
+
+  <booker-alert-error></booker-alert-error>
+
+  <booker-alert></booker-alert>
+
+  <booker-filter [filters]="filters"></booker-filter>
+
+  @if (reviews().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span bookerTranslate="bookerApp.review.home.notFound">No Reviews found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr bookerSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" bookerSortBy="id">
+              <div class="d-flex">
+                <span bookerTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="content">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.content">Content</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="rating">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.rating">Rating</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="containsSpoilers">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.containsSpoilers">Contains Spoilers</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="helpfulCount">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.helpfulCount">Helpful Count</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="createdAt">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="updatedAt">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.updatedAt">Updated At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="user.id">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.user">User</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="book.id">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.review.book">Book</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (review of reviews(); track trackId(review)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/review', review.id, 'view']">{{ review.id }}</a>
+              </td>
+              <td>{{ review.content }}</td>
+              <td>{{ review.rating }}</td>
+              <td>{{ review.containsSpoilers }}</td>
+              <td>{{ review.helpfulCount }}</td>
+              <td>{{ review.createdAt | formatMediumDatetime }}</td>
+              <td>{{ review.updatedAt | formatMediumDatetime }}</td>
+              <td>
+                {{ review.user?.id }}
+              </td>
+              <td>
+                @if (review.book) {
+                  <div>
+                    <a [routerLink]="['/book', review.book.id, 'view']">{{ review.book.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/comment']"
+                    [queryParams]="{ 'filter[reviewId.in]': review.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      bookerTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('bookerApp.review.comment' | translate) }"
+                      >Show Comment</span
+                    >
+                  </button>
+                  <a [routerLink]="['/review', review.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/review', review.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(review)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (reviews().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <booker-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></booker-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

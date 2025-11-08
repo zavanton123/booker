@@ -1,0 +1,57 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095027"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "status",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "startedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "finishedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "currentPage",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "ReadingStatus",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "readingStatus",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "readingStatus",
+      "relationshipName": "book",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

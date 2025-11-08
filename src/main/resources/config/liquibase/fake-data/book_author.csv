@@ -1,0 +1,11 @@
+id;is_primary;booker_order;book_id;author_id
+1;false;12352;1;1
+2;false;10684;2;2
+3;true;22758;3;3
+4;false;10079;4;4
+5;false;22746;5;5
+6;false;17701;6;6
+7;true;8233;7;7
+8;true;18326;8;8
+9;false;14255;9;9
+10;true;31882;10;10

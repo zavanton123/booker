@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (comment(); as commentRef) {
+      <div>
+        <h2 data-cy="commentDetailsHeading"><span bookerTranslate="bookerApp.comment.detail.title">Comment</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ commentRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.comment.content">Content</span></dt>
+          <dd>
+            <span>{{ commentRef.content }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.comment.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ commentRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.comment.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ commentRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.comment.user">User</span></dt>
+          <dd>
+            <span>{{ commentRef.user?.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.comment.review">Review</span></dt>
+          <dd>
+            @if (comment()!.review) {
+              <div>
+                <a [routerLink]="['/review', comment()!.review?.id, 'view']">{{ commentRef.review?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/comment', commentRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

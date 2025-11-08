@@ -1,0 +1,36 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095024"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "slug",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Tag",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "bookTag",
+      "otherEntityRelationshipName": "tag",
+      "relationshipName": "bookTag",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

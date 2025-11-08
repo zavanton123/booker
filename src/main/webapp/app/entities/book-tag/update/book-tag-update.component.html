@@ -1,0 +1,74 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="booker-book-tag-heading" data-cy="BookTagCreateUpdateHeading" bookerTranslate="bookerApp.bookTag.home.createOrEditLabel">
+        Create or edit a Book Tag
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.bookTag.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_book" bookerTranslate="bookerApp.bookTag.book">Book</label>
+          <select class="form-control" id="field_book" data-cy="book" name="book" formControlName="book" [compareWith]="compareBook">
+            @if (editForm.get(['book'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (bookOption of booksSharedCollection; track $index) {
+              <option [ngValue]="bookOption">{{ bookOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['book'])!.invalid && (editForm.get(['book'])!.dirty || editForm.get(['book'])!.touched)) {
+          <div>
+            @if (editForm.get(['book'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_tag" bookerTranslate="bookerApp.bookTag.tag">Tag</label>
+          <select class="form-control" id="field_tag" data-cy="tag" name="tag" formControlName="tag" [compareWith]="compareTag">
+            @if (editForm.get(['tag'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (tagOption of tagsSharedCollection; track $index) {
+              <option [ngValue]="tagOption">{{ tagOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['tag'])!.invalid && (editForm.get(['tag'])!.dirty || editForm.get(['tag'])!.touched)) {
+          <div>
+            @if (editForm.get(['tag'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

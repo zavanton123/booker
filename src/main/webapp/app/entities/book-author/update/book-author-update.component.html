@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="booker-book-author-heading"
+        data-cy="BookAuthorCreateUpdateHeading"
+        bookerTranslate="bookerApp.bookAuthor.home.createOrEditLabel"
+      >
+        Create or edit a Book Author
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.bookAuthor.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_isPrimary" bookerTranslate="bookerApp.bookAuthor.isPrimary">Is Primary</label>
+          <input type="checkbox" class="form-check" name="isPrimary" id="field_isPrimary" data-cy="isPrimary" formControlName="isPrimary" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_order" bookerTranslate="bookerApp.bookAuthor.order">Order</label>
+          <input type="number" class="form-control" name="order" id="field_order" data-cy="order" formControlName="order" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_book" bookerTranslate="bookerApp.bookAuthor.book">Book</label>
+          <select class="form-control" id="field_book" data-cy="book" name="book" formControlName="book" [compareWith]="compareBook">
+            @if (editForm.get(['book'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (bookOption of booksSharedCollection; track $index) {
+              <option [ngValue]="bookOption">{{ bookOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['book'])!.invalid && (editForm.get(['book'])!.dirty || editForm.get(['book'])!.touched)) {
+          <div>
+            @if (editForm.get(['book'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_author" bookerTranslate="bookerApp.bookAuthor.author">Author</label>
+          <select
+            class="form-control"
+            id="field_author"
+            data-cy="author"
+            name="author"
+            formControlName="author"
+            [compareWith]="compareAuthor"
+          >
+            @if (editForm.get(['author'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (authorOption of authorsSharedCollection; track $index) {
+              <option [ngValue]="authorOption">{{ authorOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['author'])!.invalid && (editForm.get(['author'])!.dirty || editForm.get(['author'])!.touched)) {
+          <div>
+            @if (editForm.get(['author'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

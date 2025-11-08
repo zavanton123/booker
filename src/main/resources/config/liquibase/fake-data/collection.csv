@@ -1,0 +1,11 @@
+id;name;description;is_public;book_count;created_at;updated_at;user_id
+1;pace;../fake-data/blob/hipster.txt;false;12080;2025-11-08T03:54:56;2025-11-07T16:00:49;1
+2;apud someplace wrathful;../fake-data/blob/hipster.txt;false;16799;2025-11-07T10:46:22;2025-11-08T01:41:19;2
+3;solemnly;../fake-data/blob/hipster.txt;false;4862;2025-11-08T05:11:52;2025-11-07T13:14:13;2
+4;sardonic;../fake-data/blob/hipster.txt;true;12971;2025-11-08T03:27:08;2025-11-08T03:02:04;1
+5;pushy;../fake-data/blob/hipster.txt;true;22706;2025-11-07T15:22:04;2025-11-07T22:07:25;2
+6;noisily before;../fake-data/blob/hipster.txt;true;5650;2025-11-07T09:51:10;2025-11-07T13:33:09;1
+7;when;../fake-data/blob/hipster.txt;false;12654;2025-11-08T00:29:52;2025-11-07T15:43:43;1
+8;imagineer quiet;../fake-data/blob/hipster.txt;true;30053;2025-11-08T00:51:46;2025-11-08T09:10:34;2
+9;plastic that;../fake-data/blob/hipster.txt;true;18464;2025-11-08T03:14:22;2025-11-07T19:46:36;1
+10;ew;../fake-data/blob/hipster.txt;false;18702;2025-11-08T07:14:50;2025-11-08T07:10:36;1

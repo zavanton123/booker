@@ -1,0 +1,62 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095021"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "firstName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fullName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "biography",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "photoUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "birthDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "deathDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "nationality",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Author",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "bookAuthor",
+      "otherEntityRelationshipName": "author",
+      "relationshipName": "bookAuthor",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,111 @@
+package ru.zavanton.booker.service.criteria;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import org.assertj.core.api.Condition;
+import org.junit.jupiter.api.Test;
+
+class TagCriteriaTest {
+
+    @Test
+    void newTagCriteriaHasAllFiltersNullTest() {
+        var tagEntityCriteria = new TagCriteria();
+        assertThat(tagEntityCriteria).is(criteriaFiltersAre(Objects::isNull));
+    }
+
+    @Test
+    void tagEntityCriteriaFluentMethodsCreatesFiltersTest() {
+        var tagEntityCriteria = new TagCriteria();
+
+        setAllFilters(tagEntityCriteria);
+
+        assertThat(tagEntityCriteria).is(criteriaFiltersAre(Objects::nonNull));
+    }
+
+    @Test
+    void tagEntityCriteriaCopyCreatesNullFilterTest() {
+        var tagEntityCriteria = new TagCriteria();
+        var copy = tagEntityCriteria.copy();
+
+        assertThat(tagEntityCriteria).satisfies(
+            criteria ->
+                assertThat(criteria).is(
+                    copyFiltersAre(copy, (a, b) -> (a == null || a instanceof Boolean) ? a == b : (a != b && a.equals(b)))
+                ),
+            criteria -> assertThat(criteria).isEqualTo(copy),
+            criteria -> assertThat(criteria).hasSameHashCodeAs(copy)
+        );
+
+        assertThat(copy).satisfies(
+            criteria -> assertThat(criteria).is(criteriaFiltersAre(Objects::isNull)),
+            criteria -> assertThat(criteria).isEqualTo(tagEntityCriteria)
+        );
+    }
+
+    @Test
+    void tagEntityCriteriaCopyDuplicatesEveryExistingFilterTest() {
+        var tagEntityCriteria = new TagCriteria();
+        setAllFilters(tagEntityCriteria);
+
+        var copy = tagEntityCriteria.copy();
+
+        assertThat(tagEntityCriteria).satisfies(
+            criteria ->
+                assertThat(criteria).is(
+                    copyFiltersAre(copy, (a, b) -> (a == null || a instanceof Boolean) ? a == b : (a != b && a.equals(b)))
+                ),
+            criteria -> assertThat(criteria).isEqualTo(copy),
+            criteria -> assertThat(criteria).hasSameHashCodeAs(copy)
+        );
+
+        assertThat(copy).satisfies(
+            criteria -> assertThat(criteria).is(criteriaFiltersAre(Objects::nonNull)),
+            criteria -> assertThat(criteria).isEqualTo(tagEntityCriteria)
+        );
+    }
+
+    @Test
+    void toStringVerifier() {
+        var tagEntityCriteria = new TagCriteria();
+
+        assertThat(tagEntityCriteria).hasToString("TagCriteria{}");
+    }
+
+    private static void setAllFilters(TagCriteria tagEntityCriteria) {
+        tagEntityCriteria.id();
+        tagEntityCriteria.name();
+        tagEntityCriteria.slug();
+        tagEntityCriteria.createdAt();
+        tagEntityCriteria.bookTagId();
+        tagEntityCriteria.distinct();
+    }
+
+    private static Condition<TagCriteria> criteriaFiltersAre(Function<Object, Boolean> condition) {
+        return new Condition<>(
+            criteria ->
+                condition.apply(criteria.getId()) &&
+                condition.apply(criteria.getName()) &&
+                condition.apply(criteria.getSlug()) &&
+                condition.apply(criteria.getCreatedAt()) &&
+                condition.apply(criteria.getBookTagId()) &&
+                condition.apply(criteria.getDistinct()),
+            "every filter matches"
+        );
+    }
+
+    private static Condition<TagCriteria> copyFiltersAre(TagCriteria copy, BiFunction<Object, Object, Boolean> condition) {
+        return new Condition<>(
+            criteria ->
+                condition.apply(criteria.getId(), copy.getId()) &&
+                condition.apply(criteria.getName(), copy.getName()) &&
+                condition.apply(criteria.getSlug(), copy.getSlug()) &&
+                condition.apply(criteria.getCreatedAt(), copy.getCreatedAt()) &&
+                condition.apply(criteria.getBookTagId(), copy.getBookTagId()) &&
+                condition.apply(criteria.getDistinct(), copy.getDistinct()),
+            "every filter matches"
+        );
+    }
+}

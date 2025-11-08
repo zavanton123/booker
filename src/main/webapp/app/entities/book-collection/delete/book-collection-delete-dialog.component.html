@@ -1,0 +1,30 @@
+@if (bookCollection) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(bookCollection.id!)">
+    <div class="modal-header">
+      <h4 class="modal-title" data-cy="bookCollectionDeleteDialogHeading" bookerTranslate="entity.delete.title">
+        Confirm delete operation
+      </h4>
+    </div>
+
+    <div class="modal-body">
+      <booker-alert-error></booker-alert-error>
+      <p
+        id="booker-delete-bookCollection-heading"
+        bookerTranslate="bookerApp.bookCollection.delete.question"
+        [translateValues]="{ id: bookCollection.id }"
+      >
+        Are you sure you want to delete Book Collection {{ bookCollection.id }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+      </button>
+
+      <button id="booker-confirm-delete-bookCollection" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span bookerTranslate="entity.action.delete">Delete</span>
+      </button>
+    </div>
+  </form>
+}

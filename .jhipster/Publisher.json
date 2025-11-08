@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095022"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "websiteUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "logoUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "foundedDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Publisher",
+  "pagination": "pagination",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

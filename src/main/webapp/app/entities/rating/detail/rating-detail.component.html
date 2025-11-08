@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (rating(); as ratingRef) {
+      <div>
+        <h2 data-cy="ratingDetailsHeading"><span bookerTranslate="bookerApp.rating.detail.title">Rating</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ ratingRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.rating.rating">Rating</span></dt>
+          <dd>
+            <span>{{ ratingRef.rating }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.rating.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ ratingRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.rating.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ ratingRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.rating.user">User</span></dt>
+          <dd>
+            <span>{{ ratingRef.user?.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.rating.book">Book</span></dt>
+          <dd>
+            @if (rating()!.book) {
+              <div>
+                <a [routerLink]="['/book', rating()!.book?.id, 'view']">{{ ratingRef.book?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/rating', ratingRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

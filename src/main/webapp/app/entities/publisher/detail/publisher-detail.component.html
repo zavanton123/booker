@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (publisher(); as publisherRef) {
+      <div>
+        <h2 data-cy="publisherDetailsHeading"><span bookerTranslate="bookerApp.publisher.detail.title">Publisher</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ publisherRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.publisher.name">Name</span></dt>
+          <dd>
+            <span>{{ publisherRef.name }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.publisher.websiteUrl">Website Url</span></dt>
+          <dd>
+            <span>{{ publisherRef.websiteUrl }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.publisher.logoUrl">Logo Url</span></dt>
+          <dd>
+            <span>{{ publisherRef.logoUrl }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.publisher.foundedDate">Founded Date</span></dt>
+          <dd>
+            <span>{{ publisherRef.foundedDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.publisher.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ publisherRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.publisher.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ publisherRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/publisher', publisherRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="booker-book-genre-heading"
+        data-cy="BookGenreCreateUpdateHeading"
+        bookerTranslate="bookerApp.bookGenre.home.createOrEditLabel"
+      >
+        Create or edit a Book Genre
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.bookGenre.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_book" bookerTranslate="bookerApp.bookGenre.book">Book</label>
+          <select class="form-control" id="field_book" data-cy="book" name="book" formControlName="book" [compareWith]="compareBook">
+            @if (editForm.get(['book'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (bookOption of booksSharedCollection; track $index) {
+              <option [ngValue]="bookOption">{{ bookOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['book'])!.invalid && (editForm.get(['book'])!.dirty || editForm.get(['book'])!.touched)) {
+          <div>
+            @if (editForm.get(['book'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_genre" bookerTranslate="bookerApp.bookGenre.genre">Genre</label>
+          <select class="form-control" id="field_genre" data-cy="genre" name="genre" formControlName="genre" [compareWith]="compareGenre">
+            @if (editForm.get(['genre'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (genreOption of genresSharedCollection; track $index) {
+              <option [ngValue]="genreOption">{{ genreOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['genre'])!.invalid && (editForm.get(['genre'])!.dirty || editForm.get(['genre'])!.touched)) {
+          <div>
+            @if (editForm.get(['genre'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,132 @@
+entity Book {
+  isbn String unique required
+  title String required
+  description TextBlob
+  coverImageUrl String
+  pageCount Integer
+  publicationDate LocalDate
+  language String
+  averageRating BigDecimal
+  totalRatings Integer
+  totalReviews Integer
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity Author {
+  firstName String
+  lastName String
+  fullName String
+  biography TextBlob
+  photoUrl String
+  birthDate LocalDate
+  deathDate LocalDate
+  nationality String
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity Publisher {
+  name String unique required
+  websiteUrl String
+  logoUrl String
+  foundedDate LocalDate
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity Genre {
+  name String unique required
+  slug String unique required
+  description TextBlob
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity Tag {
+  name String unique required
+  slug String unique required
+  createdAt Instant
+}
+
+entity Review {
+  content TextBlob required
+  rating Integer
+  containsSpoilers Boolean
+  helpfulCount Integer
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity Rating {
+  rating Integer required
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity ReadingStatus {
+  status String required
+  startedDate LocalDate
+  finishedDate LocalDate
+  currentPage Integer
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity Collection {
+  name String required
+  description TextBlob
+  isPublic Boolean
+  bookCount Integer
+  createdAt Instant
+  updatedAt Instant
+}
+
+entity BookCollection {
+  position Integer
+  addedAt Instant
+}
+
+entity BookAuthor {
+  isPrimary Boolean
+  order Integer
+}
+
+entity BookGenre {
+}
+
+entity BookTag {
+}
+
+entity Comment {
+  content TextBlob required
+  createdAt Instant
+  updatedAt Instant
+}
+
+relationship OneToMany {
+  Book{review} to Review{book required}
+  Book{rating} to Rating{book required}
+  Book{readingStatus} to ReadingStatus{book required}
+  Book{bookAuthor} to BookAuthor{book required}
+  Book{bookGenre} to BookGenre{book required}
+  Book{bookTag} to BookTag{book required}
+  Book{bookCollection} to BookCollection{book required}
+  Author{bookAuthor} to BookAuthor{author required}
+  Genre{bookGenre} to BookGenre{genre required}
+  Tag{bookTag} to BookTag{tag required}
+  Collection{bookCollection} to BookCollection{collection required}
+  Review{comment} to Comment{review required}
+}
+
+relationship ManyToOne {
+  Book{publisher} to Publisher
+  Review{user required} to User{review} with builtInEntity
+  Rating{user required} to User{rating} with builtInEntity
+  ReadingStatus{user required} to User{readingStatus} with builtInEntity
+  Collection{user required} to User{collection} with builtInEntity
+  Comment{user required} to User{comment} with builtInEntity
+}
+
+paginate * with pagination
+filter *

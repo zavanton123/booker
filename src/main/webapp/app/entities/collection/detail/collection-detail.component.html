@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (collection(); as collectionRef) {
+      <div>
+        <h2 data-cy="collectionDetailsHeading"><span bookerTranslate="bookerApp.collection.detail.title">Collection</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ collectionRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.collection.name">Name</span></dt>
+          <dd>
+            <span>{{ collectionRef.name }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.collection.description">Description</span></dt>
+          <dd>
+            <span>{{ collectionRef.description }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.collection.isPublic">Is Public</span></dt>
+          <dd>
+            <span>{{ collectionRef.isPublic }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.collection.bookCount">Book Count</span></dt>
+          <dd>
+            <span>{{ collectionRef.bookCount }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.collection.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ collectionRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.collection.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ collectionRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.collection.user">User</span></dt>
+          <dd>
+            <span>{{ collectionRef.user?.id }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/collection', collectionRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

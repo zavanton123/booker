@@ -1,0 +1,197 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="booker-book-heading" data-cy="BookCreateUpdateHeading" bookerTranslate="bookerApp.book.home.createOrEditLabel">
+        Create or edit a Book
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.book.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let isbnRef = editForm.get('isbn')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_isbn" bookerTranslate="bookerApp.book.isbn">Isbn</label>
+          <input type="text" class="form-control" name="isbn" id="field_isbn" data-cy="isbn" formControlName="isbn" />
+          @if (isbnRef.invalid && (isbnRef.dirty || isbnRef.touched)) {
+            <div>
+              @if (editForm.get('isbn')?.errors?.required) {
+                <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let titleRef = editForm.get('title')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_title" bookerTranslate="bookerApp.book.title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+          @if (titleRef.invalid && (titleRef.dirty || titleRef.touched)) {
+            <div>
+              @if (editForm.get('title')?.errors?.required) {
+                <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_description" bookerTranslate="bookerApp.book.description">Description</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_coverImageUrl" bookerTranslate="bookerApp.book.coverImageUrl">Cover Image Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="coverImageUrl"
+            id="field_coverImageUrl"
+            data-cy="coverImageUrl"
+            formControlName="coverImageUrl"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_pageCount" bookerTranslate="bookerApp.book.pageCount">Page Count</label>
+          <input type="number" class="form-control" name="pageCount" id="field_pageCount" data-cy="pageCount" formControlName="pageCount" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_publicationDate" bookerTranslate="bookerApp.book.publicationDate">Publication Date</label>
+          <div class="input-group">
+            <input
+              id="field_publicationDate"
+              data-cy="publicationDate"
+              type="text"
+              class="form-control"
+              name="publicationDate"
+              ngbDatepicker
+              #publicationDateDp="ngbDatepicker"
+              formControlName="publicationDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="publicationDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_language" bookerTranslate="bookerApp.book.language">Language</label>
+          <input type="text" class="form-control" name="language" id="field_language" data-cy="language" formControlName="language" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_averageRating" bookerTranslate="bookerApp.book.averageRating">Average Rating</label>
+          <input
+            type="number"
+            class="form-control"
+            name="averageRating"
+            id="field_averageRating"
+            data-cy="averageRating"
+            formControlName="averageRating"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_totalRatings" bookerTranslate="bookerApp.book.totalRatings">Total Ratings</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalRatings"
+            id="field_totalRatings"
+            data-cy="totalRatings"
+            formControlName="totalRatings"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_totalReviews" bookerTranslate="bookerApp.book.totalReviews">Total Reviews</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalReviews"
+            id="field_totalReviews"
+            data-cy="totalReviews"
+            formControlName="totalReviews"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" bookerTranslate="bookerApp.book.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" bookerTranslate="bookerApp.book.updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_publisher" bookerTranslate="bookerApp.book.publisher">Publisher</label>
+          <select
+            class="form-control"
+            id="field_publisher"
+            data-cy="publisher"
+            name="publisher"
+            formControlName="publisher"
+            [compareWith]="comparePublisher"
+          >
+            <option [ngValue]="null"></option>
+            @for (publisherOption of publishersSharedCollection; track $index) {
+              <option [ngValue]="publisherOption">{{ publisherOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

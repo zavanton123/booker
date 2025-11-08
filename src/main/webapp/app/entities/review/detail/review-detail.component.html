@@ -1,0 +1,66 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (review(); as reviewRef) {
+      <div>
+        <h2 data-cy="reviewDetailsHeading"><span bookerTranslate="bookerApp.review.detail.title">Review</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ reviewRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.content">Content</span></dt>
+          <dd>
+            <span>{{ reviewRef.content }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.rating">Rating</span></dt>
+          <dd>
+            <span>{{ reviewRef.rating }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.containsSpoilers">Contains Spoilers</span></dt>
+          <dd>
+            <span>{{ reviewRef.containsSpoilers }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.helpfulCount">Helpful Count</span></dt>
+          <dd>
+            <span>{{ reviewRef.helpfulCount }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ reviewRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ reviewRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.user">User</span></dt>
+          <dd>
+            <span>{{ reviewRef.user?.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.review.book">Book</span></dt>
+          <dd>
+            @if (review()!.book) {
+              <div>
+                <a [routerLink]="['/book', review()!.book?.id, 'view']">{{ reviewRef.book?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/review', reviewRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

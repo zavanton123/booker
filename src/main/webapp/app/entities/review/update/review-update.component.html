@@ -1,0 +1,148 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="booker-review-heading" data-cy="ReviewCreateUpdateHeading" bookerTranslate="bookerApp.review.home.createOrEditLabel">
+        Create or edit a Review
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.review.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let contentRef = editForm.get('content')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_content" bookerTranslate="bookerApp.review.content">Content</label>
+          <textarea class="form-control" name="content" id="field_content" data-cy="content" formControlName="content"></textarea>
+          @if (contentRef.invalid && (contentRef.dirty || contentRef.touched)) {
+            <div>
+              @if (editForm.get('content')?.errors?.required) {
+                <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_rating" bookerTranslate="bookerApp.review.rating">Rating</label>
+          <input type="number" class="form-control" name="rating" id="field_rating" data-cy="rating" formControlName="rating" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_containsSpoilers" bookerTranslate="bookerApp.review.containsSpoilers"
+            >Contains Spoilers</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="containsSpoilers"
+            id="field_containsSpoilers"
+            data-cy="containsSpoilers"
+            formControlName="containsSpoilers"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_helpfulCount" bookerTranslate="bookerApp.review.helpfulCount">Helpful Count</label>
+          <input
+            type="number"
+            class="form-control"
+            name="helpfulCount"
+            id="field_helpfulCount"
+            data-cy="helpfulCount"
+            formControlName="helpfulCount"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" bookerTranslate="bookerApp.review.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" bookerTranslate="bookerApp.review.updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" bookerTranslate="bookerApp.review.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            @if (!editForm.get('user')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)) {
+          <div>
+            @if (editForm.get(['user'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_book" bookerTranslate="bookerApp.review.book">Book</label>
+          <select class="form-control" id="field_book" data-cy="book" name="book" formControlName="book" [compareWith]="compareBook">
+            @if (editForm.get(['book'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (bookOption of booksSharedCollection; track $index) {
+              <option [ngValue]="bookOption">{{ bookOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['book'])!.invalid && (editForm.get(['book'])!.dirty || editForm.get(['book'])!.touched)) {
+          <div>
+            @if (editForm.get(['book'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

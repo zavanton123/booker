@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (bookTag(); as bookTagRef) {
+      <div>
+        <h2 data-cy="bookTagDetailsHeading"><span bookerTranslate="bookerApp.bookTag.detail.title">Book Tag</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ bookTagRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookTag.book">Book</span></dt>
+          <dd>
+            @if (bookTag()!.book) {
+              <div>
+                <a [routerLink]="['/book', bookTag()!.book?.id, 'view']">{{ bookTagRef.book?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookTag.tag">Tag</span></dt>
+          <dd>
+            @if (bookTag()!.tag) {
+              <div>
+                <a [routerLink]="['/tag', bookTag()!.tag?.id, 'view']">{{ bookTagRef.tag?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/book-tag', bookTagRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="floatType" value="float4" dbms="h2"/>
+    <property name="uuidType" value="uuid" dbms="h2"/>
+    <property name="datetimeType" value="datetime(6)" dbms="h2"/>
+    <property name="timeType" value="time(6)" dbms="h2"/>
+    <property name="clobType" value="longvarchar" dbms="h2"/>
+    <property name="blobType" value="blob" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="floatType" value="float4" dbms="postgresql"/>
+    <property name="clobType" value="clob" dbms="postgresql"/>
+    <property name="blobType" value="blob" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="postgresql"/>
+    <property name="datetimeType" value="datetime" dbms="postgresql"/>
+    <property name="timeType" value="time(6)" dbms="postgresql"/>
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095020_added_entity_Book.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095021_added_entity_Author.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095022_added_entity_Publisher.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095023_added_entity_Genre.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095024_added_entity_Tag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095025_added_entity_Review.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095026_added_entity_Rating.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095027_added_entity_ReadingStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095028_added_entity_Collection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095029_added_entity_BookCollection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095030_added_entity_BookAuthor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095031_added_entity_BookGenre.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095032_added_entity_BookTag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095033_added_entity_Comment.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20251108095020_added_entity_constraints_Book.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095025_added_entity_constraints_Review.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095026_added_entity_constraints_Rating.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095027_added_entity_constraints_ReadingStatus.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095028_added_entity_constraints_Collection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095029_added_entity_constraints_BookCollection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095030_added_entity_constraints_BookAuthor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095031_added_entity_constraints_BookGenre.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095032_added_entity_constraints_BookTag.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20251108095033_added_entity_constraints_Comment.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+</databaseChangeLog>

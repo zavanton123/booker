@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095030"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "isPrimary",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "order",
+      "fieldType": "Integer"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "BookAuthor",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "bookAuthor",
+      "relationshipName": "book",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "author",
+      "otherEntityRelationshipName": "bookAuthor",
+      "relationshipName": "author",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

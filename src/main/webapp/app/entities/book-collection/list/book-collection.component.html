@@ -1,0 +1,147 @@
+<div>
+  <h2 id="page-heading" data-cy="BookCollectionHeading">
+    <span bookerTranslate="bookerApp.bookCollection.home.title">Book Collections</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span bookerTranslate="bookerApp.bookCollection.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-book-collection"
+        [routerLink]="['/book-collection/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span bookerTranslate="bookerApp.bookCollection.home.createLabel">Create a new Book Collection</span>
+      </button>
+    </div>
+  </h2>
+
+  <booker-alert-error></booker-alert-error>
+
+  <booker-alert></booker-alert>
+
+  <booker-filter [filters]="filters"></booker-filter>
+
+  @if (bookCollections().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span bookerTranslate="bookerApp.bookCollection.home.notFound">No Book Collections found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr bookerSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" bookerSortBy="id">
+              <div class="d-flex">
+                <span bookerTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="position">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookCollection.position">Position</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="addedAt">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookCollection.addedAt">Added At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="book.id">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookCollection.book">Book</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="collection.id">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookCollection.collection">Collection</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (bookCollection of bookCollections(); track trackId(bookCollection)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/book-collection', bookCollection.id, 'view']">{{ bookCollection.id }}</a>
+              </td>
+              <td>{{ bookCollection.position }}</td>
+              <td>{{ bookCollection.addedAt | formatMediumDatetime }}</td>
+              <td>
+                @if (bookCollection.book) {
+                  <div>
+                    <a [routerLink]="['/book', bookCollection.book.id, 'view']">{{ bookCollection.book.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (bookCollection.collection) {
+                  <div>
+                    <a [routerLink]="['/collection', bookCollection.collection.id, 'view']">{{ bookCollection.collection.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a
+                    [routerLink]="['/book-collection', bookCollection.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a
+                    [routerLink]="['/book-collection', bookCollection.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(bookCollection)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (bookCollections().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <booker-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></booker-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

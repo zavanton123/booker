@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (bookAuthor(); as bookAuthorRef) {
+      <div>
+        <h2 data-cy="bookAuthorDetailsHeading"><span bookerTranslate="bookerApp.bookAuthor.detail.title">Book Author</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ bookAuthorRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookAuthor.isPrimary">Is Primary</span></dt>
+          <dd>
+            <span>{{ bookAuthorRef.isPrimary }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookAuthor.order">Order</span></dt>
+          <dd>
+            <span>{{ bookAuthorRef.order }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookAuthor.book">Book</span></dt>
+          <dd>
+            @if (bookAuthor()!.book) {
+              <div>
+                <a [routerLink]="['/book', bookAuthor()!.book?.id, 'view']">{{ bookAuthorRef.book?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookAuthor.author">Author</span></dt>
+          <dd>
+            @if (bookAuthor()!.author) {
+              <div>
+                <a [routerLink]="['/author', bookAuthor()!.author?.id, 'view']">{{ bookAuthorRef.author?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/book-author', bookAuthorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

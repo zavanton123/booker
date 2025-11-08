@@ -1,0 +1,139 @@
+<div>
+  <h2 id="page-heading" data-cy="BookAuthorHeading">
+    <span bookerTranslate="bookerApp.bookAuthor.home.title">Book Authors</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span bookerTranslate="bookerApp.bookAuthor.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-book-author"
+        [routerLink]="['/book-author/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span bookerTranslate="bookerApp.bookAuthor.home.createLabel">Create a new Book Author</span>
+      </button>
+    </div>
+  </h2>
+
+  <booker-alert-error></booker-alert-error>
+
+  <booker-alert></booker-alert>
+
+  <booker-filter [filters]="filters"></booker-filter>
+
+  @if (bookAuthors().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span bookerTranslate="bookerApp.bookAuthor.home.notFound">No Book Authors found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr bookerSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" bookerSortBy="id">
+              <div class="d-flex">
+                <span bookerTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="isPrimary">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookAuthor.isPrimary">Is Primary</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="order">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookAuthor.order">Order</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="book.id">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookAuthor.book">Book</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="author.id">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.bookAuthor.author">Author</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (bookAuthor of bookAuthors(); track trackId(bookAuthor)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/book-author', bookAuthor.id, 'view']">{{ bookAuthor.id }}</a>
+              </td>
+              <td>{{ bookAuthor.isPrimary }}</td>
+              <td>{{ bookAuthor.order }}</td>
+              <td>
+                @if (bookAuthor.book) {
+                  <div>
+                    <a [routerLink]="['/book', bookAuthor.book.id, 'view']">{{ bookAuthor.book.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (bookAuthor.author) {
+                  <div>
+                    <a [routerLink]="['/author', bookAuthor.author.id, 'view']">{{ bookAuthor.author.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/book-author', bookAuthor.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/book-author', bookAuthor.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(bookAuthor)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (bookAuthors().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <booker-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></booker-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

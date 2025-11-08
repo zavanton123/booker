@@ -1,0 +1,25 @@
+{
+  "bookerApp": {
+    "bookGenre": {
+      "home": {
+        "title": "Book Genres",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Book Genre",
+        "createOrEditLabel": "Create or edit a Book Genre",
+        "notFound": "No Book Genres found"
+      },
+      "created": "A new Book Genre is created with identifier {{ param }}",
+      "updated": "A Book Genre is updated with identifier {{ param }}",
+      "deleted": "A Book Genre is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Book Genre {{ id }}?"
+      },
+      "detail": {
+        "title": "Book Genre"
+      },
+      "id": "ID",
+      "book": "Book",
+      "genre": "Genre"
+    }
+  }
+}

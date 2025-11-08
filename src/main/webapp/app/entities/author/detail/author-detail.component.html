@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (author(); as authorRef) {
+      <div>
+        <h2 data-cy="authorDetailsHeading"><span bookerTranslate="bookerApp.author.detail.title">Author</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ authorRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.firstName">First Name</span></dt>
+          <dd>
+            <span>{{ authorRef.firstName }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.lastName">Last Name</span></dt>
+          <dd>
+            <span>{{ authorRef.lastName }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.fullName">Full Name</span></dt>
+          <dd>
+            <span>{{ authorRef.fullName }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.biography">Biography</span></dt>
+          <dd>
+            <span>{{ authorRef.biography }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.photoUrl">Photo Url</span></dt>
+          <dd>
+            <span>{{ authorRef.photoUrl }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.birthDate">Birth Date</span></dt>
+          <dd>
+            <span>{{ authorRef.birthDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.deathDate">Death Date</span></dt>
+          <dd>
+            <span>{{ authorRef.deathDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.nationality">Nationality</span></dt>
+          <dd>
+            <span>{{ authorRef.nationality }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ authorRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.author.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ authorRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/author', authorRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,120 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095020"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "isbn",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "coverImageUrl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pageCount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "publicationDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "language",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "averageRating",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "totalRatings",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "totalReviews",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Book",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "review",
+      "otherEntityRelationshipName": "book",
+      "relationshipName": "review",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "rating",
+      "otherEntityRelationshipName": "book",
+      "relationshipName": "rating",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "readingStatus",
+      "otherEntityRelationshipName": "book",
+      "relationshipName": "readingStatus",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "bookAuthor",
+      "otherEntityRelationshipName": "book",
+      "relationshipName": "bookAuthor",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "bookGenre",
+      "otherEntityRelationshipName": "book",
+      "relationshipName": "bookGenre",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "bookTag",
+      "otherEntityRelationshipName": "book",
+      "relationshipName": "bookTag",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "bookCollection",
+      "otherEntityRelationshipName": "book",
+      "relationshipName": "bookCollection",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "publisher",
+      "relationshipName": "publisher",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

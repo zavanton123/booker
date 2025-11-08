@@ -1,0 +1,115 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="booker-publisher-heading" data-cy="PublisherCreateUpdateHeading" bookerTranslate="bookerApp.publisher.home.createOrEditLabel">
+        Create or edit a Publisher
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.publisher.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let nameRef = editForm.get('name')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_name" bookerTranslate="bookerApp.publisher.name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          @if (nameRef.invalid && (nameRef.dirty || nameRef.touched)) {
+            <div>
+              @if (editForm.get('name')?.errors?.required) {
+                <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_websiteUrl" bookerTranslate="bookerApp.publisher.websiteUrl">Website Url</label>
+          <input
+            type="text"
+            class="form-control"
+            name="websiteUrl"
+            id="field_websiteUrl"
+            data-cy="websiteUrl"
+            formControlName="websiteUrl"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_logoUrl" bookerTranslate="bookerApp.publisher.logoUrl">Logo Url</label>
+          <input type="text" class="form-control" name="logoUrl" id="field_logoUrl" data-cy="logoUrl" formControlName="logoUrl" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_foundedDate" bookerTranslate="bookerApp.publisher.foundedDate">Founded Date</label>
+          <div class="input-group">
+            <input
+              id="field_foundedDate"
+              data-cy="foundedDate"
+              type="text"
+              class="form-control"
+              name="foundedDate"
+              ngbDatepicker
+              #foundedDateDp="ngbDatepicker"
+              formControlName="foundedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="foundedDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" bookerTranslate="bookerApp.publisher.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" bookerTranslate="bookerApp.publisher.updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

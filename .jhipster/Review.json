@@ -1,0 +1,64 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095025"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "content",
+      "fieldType": "TextBlob",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "rating",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "containsSpoilers",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "helpfulCount",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "Review",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "review",
+      "relationshipName": "comment",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "review",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "review",
+      "relationshipName": "book",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

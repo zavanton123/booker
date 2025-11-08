@@ -1,0 +1,136 @@
+<div>
+  <h2 id="page-heading" data-cy="TagHeading">
+    <span bookerTranslate="bookerApp.tag.home.title">Tags</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span bookerTranslate="bookerApp.tag.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tag"
+        [routerLink]="['/tag/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span bookerTranslate="bookerApp.tag.home.createLabel">Create a new Tag</span>
+      </button>
+    </div>
+  </h2>
+
+  <booker-alert-error></booker-alert-error>
+
+  <booker-alert></booker-alert>
+
+  <booker-filter [filters]="filters"></booker-filter>
+
+  @if (tags().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span bookerTranslate="bookerApp.tag.home.notFound">No Tags found</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr bookerSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" bookerSortBy="id">
+              <div class="d-flex">
+                <span bookerTranslate="global.field.id">ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="name">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.tag.name">Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="slug">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.tag.slug">Slug</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" bookerSortBy="createdAt">
+              <div class="d-flex">
+                <span bookerTranslate="bookerApp.tag.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (tag of tags(); track trackId(tag)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/tag', tag.id, 'view']">{{ tag.id }}</a>
+              </td>
+              <td>{{ tag.name }}</td>
+              <td>{{ tag.slug }}</td>
+              <td>{{ tag.createdAt | formatMediumDatetime }}</td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/book-tag']"
+                    [queryParams]="{ 'filter[tagId.in]': tag.id }"
+                    class="btn btn-info btn-sm"
+                    data-cy="filterOtherEntityButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span
+                      class="d-none d-md-inline"
+                      bookerTranslate="entity.action.show"
+                      [translateValues]="{ otherEntity: ('bookerApp.tag.bookTag' | translate) }"
+                      >Show Book Tag</span
+                    >
+                  </button>
+                  <a [routerLink]="['/tag', tag.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.view">View</span>
+                  </a>
+
+                  <a [routerLink]="['/tag', tag.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.edit">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(tag)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" bookerTranslate="entity.action.delete">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (tags().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <booker-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></booker-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

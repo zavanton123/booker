@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (book(); as bookRef) {
+      <div>
+        <h2 data-cy="bookDetailsHeading"><span bookerTranslate="bookerApp.book.detail.title">Book</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ bookRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.isbn">Isbn</span></dt>
+          <dd>
+            <span>{{ bookRef.isbn }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.title">Title</span></dt>
+          <dd>
+            <span>{{ bookRef.title }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.description">Description</span></dt>
+          <dd>
+            <span>{{ bookRef.description }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.coverImageUrl">Cover Image Url</span></dt>
+          <dd>
+            <span>{{ bookRef.coverImageUrl }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.pageCount">Page Count</span></dt>
+          <dd>
+            <span>{{ bookRef.pageCount }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.publicationDate">Publication Date</span></dt>
+          <dd>
+            <span>{{ bookRef.publicationDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.language">Language</span></dt>
+          <dd>
+            <span>{{ bookRef.language }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.averageRating">Average Rating</span></dt>
+          <dd>
+            <span>{{ bookRef.averageRating }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.totalRatings">Total Ratings</span></dt>
+          <dd>
+            <span>{{ bookRef.totalRatings }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.totalReviews">Total Reviews</span></dt>
+          <dd>
+            <span>{{ bookRef.totalReviews }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ bookRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.updatedAt">Updated At</span></dt>
+          <dd>
+            <span>{{ bookRef.updatedAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.book.publisher">Publisher</span></dt>
+          <dd>
+            @if (book()!.publisher) {
+              <div>
+                <a [routerLink]="['/publisher', book()!.publisher?.id, 'view']">{{ bookRef.publisher?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/book', bookRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

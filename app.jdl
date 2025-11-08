@@ -1,0 +1,36 @@
+application {
+  config {
+    applicationType monolith
+
+    baseName booker
+    packageName ru.zavanton.booker
+    buildTool gradle
+
+    databaseType sql
+    devDatabaseType h2Memory
+    prodDatabaseType postgresql
+    enableHibernateCache false
+
+    skipClient false
+    clientFramework angular
+    clientPackageManager npm
+    clientTheme flatly
+    clientThemeVariant primary
+
+    dtoSuffix Dto
+    entitySuffix Entity
+    jhiPrefix booker
+
+    authenticationType jwt
+    cacheProvider no
+    reactive false
+    searchEngine false
+    skipUserManagement false
+
+    testFrameworks []
+
+    websocket false
+    skipServer false
+    serverPort 8888
+  }
+}

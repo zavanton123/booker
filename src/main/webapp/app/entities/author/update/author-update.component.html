@@ -1,0 +1,137 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="booker-author-heading" data-cy="AuthorCreateUpdateHeading" bookerTranslate="bookerApp.author.home.createOrEditLabel">
+        Create or edit a Author
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.author.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_firstName" bookerTranslate="bookerApp.author.firstName">First Name</label>
+          <input type="text" class="form-control" name="firstName" id="field_firstName" data-cy="firstName" formControlName="firstName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_lastName" bookerTranslate="bookerApp.author.lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_fullName" bookerTranslate="bookerApp.author.fullName">Full Name</label>
+          <input type="text" class="form-control" name="fullName" id="field_fullName" data-cy="fullName" formControlName="fullName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_biography" bookerTranslate="bookerApp.author.biography">Biography</label>
+          <textarea class="form-control" name="biography" id="field_biography" data-cy="biography" formControlName="biography"></textarea>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_photoUrl" bookerTranslate="bookerApp.author.photoUrl">Photo Url</label>
+          <input type="text" class="form-control" name="photoUrl" id="field_photoUrl" data-cy="photoUrl" formControlName="photoUrl" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_birthDate" bookerTranslate="bookerApp.author.birthDate">Birth Date</label>
+          <div class="input-group">
+            <input
+              id="field_birthDate"
+              data-cy="birthDate"
+              type="text"
+              class="form-control"
+              name="birthDate"
+              ngbDatepicker
+              #birthDateDp="ngbDatepicker"
+              formControlName="birthDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="birthDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_deathDate" bookerTranslate="bookerApp.author.deathDate">Death Date</label>
+          <div class="input-group">
+            <input
+              id="field_deathDate"
+              data-cy="deathDate"
+              type="text"
+              class="form-control"
+              name="deathDate"
+              ngbDatepicker
+              #deathDateDp="ngbDatepicker"
+              formControlName="deathDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="deathDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nationality" bookerTranslate="bookerApp.author.nationality">Nationality</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nationality"
+            id="field_nationality"
+            data-cy="nationality"
+            formControlName="nationality"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" bookerTranslate="bookerApp.author.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" bookerTranslate="bookerApp.author.updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

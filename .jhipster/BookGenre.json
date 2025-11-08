@@ -1,0 +1,30 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095031"
+  },
+  "applications": "*",
+  "fields": [],
+  "jpaMetamodelFiltering": true,
+  "name": "BookGenre",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "bookGenre",
+      "relationshipName": "book",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "genre",
+      "otherEntityRelationshipName": "bookGenre",
+      "relationshipName": "genre",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

@@ -1,0 +1,25 @@
+@if (user) {
+  <form name="deleteForm" (ngSubmit)="confirmDelete(user.login!)">
+    <div class="modal-header">
+      <h4 class="modal-title" bookerTranslate="entity.delete.title">Confirm delete operation</h4>
+    </div>
+
+    <div class="modal-body">
+      <booker-alert-error></booker-alert-error>
+
+      <p bookerTranslate="userManagement.delete.question" [translateValues]="{ login: user.login }">
+        Are you sure you want to delete user {{ user.login }}?
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+        <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+      </button>
+
+      <button type="submit" class="btn btn-danger">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span bookerTranslate="entity.action.delete">Delete</span>
+      </button>
+    </div>
+  </form>
+}

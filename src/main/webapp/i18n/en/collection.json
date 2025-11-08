@@ -1,0 +1,31 @@
+{
+  "bookerApp": {
+    "collection": {
+      "home": {
+        "title": "Collections",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Collection",
+        "createOrEditLabel": "Create or edit a Collection",
+        "notFound": "No Collections found"
+      },
+      "created": "A new Collection is created with identifier {{ param }}",
+      "updated": "A Collection is updated with identifier {{ param }}",
+      "deleted": "A Collection is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Collection {{ id }}?"
+      },
+      "detail": {
+        "title": "Collection"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "isPublic": "Is Public",
+      "bookCount": "Book Count",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "bookCollection": "Book Collection",
+      "user": "User"
+    }
+  }
+}

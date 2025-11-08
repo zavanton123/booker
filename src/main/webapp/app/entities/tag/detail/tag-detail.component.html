@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (tag(); as tagRef) {
+      <div>
+        <h2 data-cy="tagDetailsHeading"><span bookerTranslate="bookerApp.tag.detail.title">Tag</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ tagRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.tag.name">Name</span></dt>
+          <dd>
+            <span>{{ tagRef.name }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.tag.slug">Slug</span></dt>
+          <dd>
+            <span>{{ tagRef.slug }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.tag.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ tagRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/tag', tagRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

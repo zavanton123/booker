@@ -1,0 +1,171 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="booker-reading-status-heading"
+        data-cy="ReadingStatusCreateUpdateHeading"
+        bookerTranslate="bookerApp.readingStatus.home.createOrEditLabel"
+      >
+        Create or edit a Reading Status
+      </h2>
+
+      <div>
+        <booker-alert-error></booker-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" bookerTranslate="bookerApp.readingStatus.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status" bookerTranslate="bookerApp.readingStatus.status">Status</label>
+          <input type="text" class="form-control" name="status" id="field_status" data-cy="status" formControlName="status" />
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_startedDate" bookerTranslate="bookerApp.readingStatus.startedDate">Started Date</label>
+          <div class="input-group">
+            <input
+              id="field_startedDate"
+              data-cy="startedDate"
+              type="text"
+              class="form-control"
+              name="startedDate"
+              ngbDatepicker
+              #startedDateDp="ngbDatepicker"
+              formControlName="startedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="startedDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_finishedDate" bookerTranslate="bookerApp.readingStatus.finishedDate">Finished Date</label>
+          <div class="input-group">
+            <input
+              id="field_finishedDate"
+              data-cy="finishedDate"
+              type="text"
+              class="form-control"
+              name="finishedDate"
+              ngbDatepicker
+              #finishedDateDp="ngbDatepicker"
+              formControlName="finishedDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="finishedDateDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_currentPage" bookerTranslate="bookerApp.readingStatus.currentPage">Current Page</label>
+          <input
+            type="number"
+            class="form-control"
+            name="currentPage"
+            id="field_currentPage"
+            data-cy="currentPage"
+            formControlName="currentPage"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" bookerTranslate="bookerApp.readingStatus.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_updatedAt" bookerTranslate="bookerApp.readingStatus.updatedAt">Updated At</label>
+          <div class="d-flex">
+            <input
+              id="field_updatedAt"
+              data-cy="updatedAt"
+              type="datetime-local"
+              class="form-control"
+              name="updatedAt"
+              formControlName="updatedAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" bookerTranslate="bookerApp.readingStatus.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            @if (!editForm.get('user')!.value) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)) {
+          <div>
+            @if (editForm.get(['user'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_book" bookerTranslate="bookerApp.readingStatus.book">Book</label>
+          <select class="form-control" id="field_book" data-cy="book" name="book" formControlName="book" [compareWith]="compareBook">
+            @if (editForm.get(['book'])!.value == null) {
+              <option [ngValue]="null" selected></option>
+            }
+            @for (bookOption of booksSharedCollection; track $index) {
+              <option [ngValue]="bookOption">{{ bookOption.id }}</option>
+            }
+          </select>
+        </div>
+        @if (editForm.get(['book'])!.invalid && (editForm.get(['book'])!.dirty || editForm.get(['book'])!.touched)) {
+          <div>
+            @if (editForm.get(['book'])?.errors?.required) {
+              <small class="form-text text-danger" bookerTranslate="entity.validation.required">This field is required.</small>
+            }
+          </div>
+        }
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span bookerTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span bookerTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

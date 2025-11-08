@@ -1,0 +1,39 @@
+{
+  "annotations": {
+    "changelogDate": "20251108095029"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "position",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "addedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "jpaMetamodelFiltering": true,
+  "name": "BookCollection",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "book",
+      "otherEntityRelationshipName": "bookCollection",
+      "relationshipName": "book",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "collection",
+      "otherEntityRelationshipName": "bookCollection",
+      "relationshipName": "collection",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

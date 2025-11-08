@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (bookGenre(); as bookGenreRef) {
+      <div>
+        <h2 data-cy="bookGenreDetailsHeading"><span bookerTranslate="bookerApp.bookGenre.detail.title">Book Genre</span></h2>
+
+        <hr />
+
+        <booker-alert-error></booker-alert-error>
+
+        <booker-alert></booker-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span bookerTranslate="global.field.id">ID</span></dt>
+          <dd>
+            <span>{{ bookGenreRef.id }}</span>
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookGenre.book">Book</span></dt>
+          <dd>
+            @if (bookGenre()!.book) {
+              <div>
+                <a [routerLink]="['/book', bookGenre()!.book?.id, 'view']">{{ bookGenreRef.book?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span bookerTranslate="bookerApp.bookGenre.genre">Genre</span></dt>
+          <dd>
+            @if (bookGenre()!.genre) {
+              <div>
+                <a [routerLink]="['/genre', bookGenre()!.genre?.id, 'view']">{{ bookGenreRef.genre?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span bookerTranslate="entity.action.back">Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/book-genre', bookGenreRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span bookerTranslate="entity.action.edit">Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,43 @@
+{
+  "bookerApp": {
+    "book": {
+      "home": {
+        "title": "Books",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Book",
+        "createOrEditLabel": "Create or edit a Book",
+        "notFound": "No Books found"
+      },
+      "created": "A new Book is created with identifier {{ param }}",
+      "updated": "A Book is updated with identifier {{ param }}",
+      "deleted": "A Book is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Book {{ id }}?"
+      },
+      "detail": {
+        "title": "Book"
+      },
+      "id": "ID",
+      "isbn": "Isbn",
+      "title": "Title",
+      "description": "Description",
+      "coverImageUrl": "Cover Image Url",
+      "pageCount": "Page Count",
+      "publicationDate": "Publication Date",
+      "language": "Language",
+      "averageRating": "Average Rating",
+      "totalRatings": "Total Ratings",
+      "totalReviews": "Total Reviews",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "review": "Review",
+      "rating": "Rating",
+      "readingStatus": "Reading Status",
+      "bookAuthor": "Book Author",
+      "bookGenre": "Book Genre",
+      "bookTag": "Book Tag",
+      "bookCollection": "Book Collection",
+      "publisher": "Publisher"
+    }
+  }
+}
